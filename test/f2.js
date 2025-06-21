@@ -1,0 +1,108 @@
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
+//const { fs} = require('fs');
+describe("FundraiserFactory", function () {
+  let factory;
+  let owner;
+  let beneficiary;
+  let fundraiserAddress;
+  const fundraiserName = "Test Fundraiser";
+
+  beforeEach(async function () {
+    // [owner] = await ethers.getSigners();
+   // factory = await ethers.getContractFactory("FundraiserFactory");
+   // f  = await factory.deploy();
+   // await f.waitForDeployment();
+
+
+
+
+
+	  // [owner, beneficiary] = await ethers.getSigners();
+
+//    const Factory = await ethers.getContractFactory("FundraiserFactory");
+//    factory = await Factory.deploy();
+
+
+     //     const factory  = await ethers.deployContract("FundraiserFactory");
+
+   //     console.log("just deployed..........");
+
+	  //    await factory.deployed();
+  });
+
+  it("x creates a fundraiser and verifies its name", async function () {
+    const url = "https://example.com";
+    const imageURL = "https://example.com/image.png";
+    const description = "This is a test fundraiser";
+    [owner, beneficiary] = await ethers.getSigners();
+ const f = await ethers.deployContract("FundraiserFactory");
+
+    //const Factory = await ethers.getContractFactory("FundraiserFactory");
+    //if = await Factory.deploy();
+    console.log(f)
+
+  //        const factorya  = await ethers.deployContract("Fundraiser");
+   // const contract = await ethers.getContractFactory("FundraiserFactory");
+  //  const cd = await ethers.contract.deploy()	  
+ //       const cd  = await ethers.deployContract("FundraiserFactory");
+
+
+    // Call createFundraiser
+    const tx = await f.createFundraiser(
+      fundraiserName,
+      url,
+      imageURL,
+      description,
+      beneficiary.address
+    );
+
+    // Wait for the event to be emitted
+    const receipt = await tx.wait();
+console.log("receipt....")
+console.log(receipt) 
+console.log("tx")
+console.log(tx)
+const  fs = require('fs');
+
+	  const contractArtifact = JSON.parse(fs.readFileSync("FundraiserFactory.json",'utf8'));
+
+
+const  iface = new ethers.Interface(contractArtifact.abi)
+const txReceipt = await ethers.provider.getTransactionReceipt(tx.hash);
+ let junk = iface.parseLog(txReceipt.logs[1])
+console.log(junk)
+console.log("junk anme")
+	  console.log(junk.name)
+
+	  if (receipt && receipt.events) {
+        const myEvent = receipt.logs.find(log => log.fragment.name  === 'FundraiserCreated');
+        if (myEvent) {
+            console.log(" A Event found:", myEvent.args);
+        } else {
+            console.log("B  Event not found.");
+        }
+    } else {
+        console.log("C    No events in this transaction");
+    }
+
+
+
+
+
+
+
+
+//	  const event = receipt.events.find((e) => e.event === "FundraiserCreated");
+  //  fundraiserAddress = event.args.fundraiser;
+
+    // Attach to Fundraiser contract
+   // const Fundraiser = await ethers.getContractFactory("Fundraiser");
+   // const fundraiser = Fundraiser.attach(fundraiserAddress);
+
+    // Assertion on name
+   // const name = await fundraiser.name();
+   // expect(name).to.equal(fundraiserName);
+  });
+});
+

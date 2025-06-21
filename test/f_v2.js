@@ -1,0 +1,159 @@
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
+const { loadFixture }  = require("@nomicfoundation/hardhat-network-helpers")
+
+describe("FundraiserFactory", function () {
+  let FundraiserFactory, fundraiserFactory;
+  let Fundraiser;
+  let owner, beneficiary;
+
+//  beforeEach(async () => {
+ async function runEveryTime() {  
+    [owner, beneficiary] = await ethers.getSigners();
+    // Deploy FundraiserFactory
+    const FundraiserFactoryFactory = await ethers.getContractFactory("FundraiserFactory");
+    fundraiserFactory = await FundraiserFactoryFactory.deploy();
+    //await fundraiserFactory.deployed();
+    await fundraiserFactory.waitForDeployment();
+    // Get Fundraiser contract ABI
+    //Fundraiser = await ethers.getContractFactory("Fundraiser");
+
+   // await addFundraisers(   fundraiserFactory, fundraiserCount, accounts);
+ return { fundraiserFactory }
+
+ };
+ async function addFundraisers(factory, count) {
+    const name = "Beneficiary";
+    const lowerCaseName = name.toLowerCase();
+//    const beneficiary = accounts[1];
+ [owner, beneficiary] = await ethers.getSigners();
+
+    for (let i=0; i < count; i++) {
+      await factory.createFundraiser(
+        `${name} ${i}`,
+        `${lowerCaseName}${i}.com`,
+        `${lowerCaseName}${i}.png`,
+        `Description for ${name} ${i}`,
+        beneficiary
+      );
+    }
+  }
+  it("ffv2 should start with zero fundraisers", async () => {
+      const fundraiserf  = await ethers.deployContract("FundraiserFactory");
+      
+        const { fundraiserFactory }  = await loadFixture(runEveryTime);
+        expect(fundraiserFactory , "contract has been deployed");
+
+
+
+
+	  expect(await fundraiserFactory.fundraisersCount()).to.equal(0);
+  });
+
+  describe("daveo    when fundraisers collection is empty", () => {
+    it("ffv2 returns an empty collection", async () => {
+//      const factory = await createFundraiserFactory(0, accounts);
+  
+        const { fundraiserFactory }  = await loadFixture(runEveryTime);
+const fundraiserCount = 0; 
+await addFundraisers(   fundraiserFactory, fundraiserCount);
+
+
+	    const fundraisers = await fundraiserFactory.fundraisers(10, 0);
+  
+
+          expect(await fundraiserFactory.fundraisersCount()).to.equal(0);
+
+//	    assert.equal(
+//        fundraisers.length,
+//     0,
+//        "ffv2  collection should be empty"
+//      );
+    });
+  });
+
+
+
+
+
+ describe("daveo30    when fundraisers collection is empty", () => {
+    it("ffv2 results should be  10", async () => {
+//      const factory = await createFundraiserFactory(0, accounts);
+
+        const { fundraiserFactory }  = await loadFixture(runEveryTime);
+const fundraiserCount = 30;
+await addFundraisers(   fundraiserFactory, fundraiserCount);
+            const fundraisers = await fundraiserFactory.fundraisers(10, 0);
+          expect(await fundraisers.length).to.equal(10);
+    });
+  });
+
+ describe("daveo31    when fundraisers collection is empty", () => {
+    it("ffv21 results should be  10", async () => {
+//      const factory = await createFundraiserFactory(0, accounts);
+
+        const { fundraiserFactory }  = await loadFixture(runEveryTime);
+const fundraiserCount = 30;
+await addFundraisers(   fundraiserFactory, fundraiserCount);
+            const fundraisers = await fundraiserFactory.fundraisers(20, 0);
+          expect(await fundraisers.length).to.equal(20);
+    });
+  });
+
+
+
+
+
+
+		  describe("daveo32    when fundraisers collection is empty", () => {
+    it("ffv22 results should be  10", async () => {
+//      const factory = await createFundraiserFactory(0, accounts);
+
+        const { fundraiserFactory }  = await loadFixture(runEveryTime);
+const fundraiserCount = 30;
+await addFundraisers(   fundraiserFactory, fundraiserCount);
+            const fundraisers = await fundraiserFactory.fundraisers(30, 0);
+          expect(await fundraisers.length).to.equal(30);
+    });
+  });
+
+
+  //  });
+ // });
+
+
+                  describe("daveo33    when fundraisers collection is empty", () => {
+    it("ffv24 includes the appropriatie offset", async () => {
+//      const factory = await createFundraiserFactory(0, accounts);
+
+        const { fundraiserFactory }  = await loadFixture(runEveryTime);
+const fundraiserCount = 30;
+await addFundraisers(   fundraiserFactory, fundraiserCount);
+            const fundraisers = await fundraiserFactory.fundraisers(1, 0);
+          expect(await fundraisers.length).to.equal(1);
+   //  const fundraiser = await FundraiserFactory.at(fundraisers[0]);
+     const fundraiser = await fundraiserFactory.getFundraiserAt(0);  
+
+
+
+	    const name = await fundraiser.name;
+console.log("name=>");
+console.log(name);	    
+
+	    //     assert.ok(await name.includes(0), `${name} did not include the offset`);
+
+
+
+
+    });
+  });
+
+
+
+
+
+
+
+
+
+});

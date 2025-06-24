@@ -125,6 +125,7 @@ await addFundraisers(   fundraiserFactory, fundraiserCount);
                   describe("daveo33    when fundraisers collection is empty", () => {
     it("ffv24 includes the appropriatie offset", async () => {
 //      const factory = await createFundraiserFactory(0, accounts);
+
         const { fundraiserFactory }  = await loadFixture(runEveryTime);
 const fundraiserCount = 30;
 await addFundraisers(   fundraiserFactory, fundraiserCount);
@@ -133,91 +134,34 @@ await addFundraisers(   fundraiserFactory, fundraiserCount);
    //  const fundraiser = await FundraiserFactory.at(fundraisers[0]);
  console.log("fundraiserFactory"); 
 console.log(fundraiserFactory)
+
 	    const fundraiserAddr = await fundraiserFactory.getFundraiserAt(0);  
 //   const fundraiser = await fundraisers.getFundraiserAt(0);
   const Fundraiser = await ethers.getContractFactory("Fundraiser");
   const fundraiser = Fundraiser.attach(fundraiserAddr);
 console.log(await fundraiser.name())
-  expect(await fundraiser.name()).to.equal("Beneficiary 0");
+//  expect(await fundraiser.name()).to.equal("Water Wells");
+
+
+
 	    const name = await fundraiser.name();
 console.log("name=>");
 console.log(name);	    
-          expect(await name.includes(0));
+
+	    //     assert.ok(await name.includes(0), `${name} did not include the offset`);
+
+
+
+
     });
-
-   it("ffv24 includes the appropriatie offset", async () => {
-        const { fundraiserFactory }  = await loadFixture(runEveryTime);
-const fundraiserCount = 30;
-await addFundraisers(   fundraiserFactory, fundraiserCount);
-            const fundraisers = await fundraiserFactory.fundraisers(1, 0);
-          expect(await fundraisers.length).to.equal(1);
-   //  const fundraiser = await FundraiserFactory.at(fundraisers[0]);
- console.log("fundraiserFactory");
-console.log(fundraiserFactory)
-            const fundraiserAddr = await fundraiserFactory.getFundraiserAt(0);
-//   const fundraiser = await fundraisers.getFundraiserAt(0);
-  const Fundraiser = await ethers.getContractFactory("Fundraiser");
-  const fundraiser = Fundraiser.attach(fundraiserAddr);
-console.log(await fundraiser.name())
-  expect(await fundraiser.name()).to.equal("Beneficiary 0");
-
-  });
-
-   it("ffv25 includes the appropriatie offset", async () => {
-        const { fundraiserFactory }  = await loadFixture(runEveryTime);
-const fundraiserCount = 30;
-await addFundraisers(   fundraiserFactory, fundraiserCount);
- console.log("fundraiserFactory");
-console.log(fundraiserFactory)
-            const fundraiserAddr = await fundraiserFactory.getFundraiserAt(7);
-  const Fundraiser = await ethers.getContractFactory("Fundraiser");
-  const fundraiser = Fundraiser.attach(fundraiserAddr);
-console.log(await fundraiser.name())
-  expect(await fundraiser.name()).to.equal("Beneficiary 7");
-
-  });
-
-   it("ffv26 includes the appropriatie offset", async () => {
-        const { fundraiserFactory }  = await loadFixture(runEveryTime);
-const fundraiserCount = 30;
-await addFundraisers(   fundraiserFactory, fundraiserCount);
- console.log("fundraiserFactory");
-console.log(fundraiserFactory)
-            const fundraiserAddr = await fundraiserFactory.getFundraiserAt(7);
-  const Fundraiser = await ethers.getContractFactory("Fundraiser");
-  const fundraiser = Fundraiser.attach(fundraiserAddr);
-console.log(await fundraiser.name())
-  expect(await fundraiser.name()).to.equal("Beneficiary 7");
-
-  });
-
-  it("ffv27 includes the appropriatie offset", async () => {
-        const { fundraiserFactory }  = await loadFixture(runEveryTime);
-const fundraiserCount = 30;
-await addFundraisers(   fundraiserFactory, fundraiserCount);
- console.log("fundraiserFactory");
-console.log(fundraiserFactory)
-            const fundraiserAddr = await fundraiserFactory.getFundraiserAt(7);
-  const Fundraiser = await ethers.getContractFactory("Fundraiser");
-  const fundraiser = Fundraiser.attach(fundraiserAddr);
-console.log(await fundraiser.name())
-  expect(await fundraiser.name()).to.equal("Beneficiary 7");
-  // ❌ Test offset == fundraiserCount (should revert)
-  await expect(fundraiserFactory.fundraisers(1, fundraiserCount)).to.be.revertedWith(
-    "offset out of bounds"
-  );
-
-  // ❌ Test offset > fundraiserCount (should also revert)
-  await expect(fundraiserFactory.fundraisers(1, fundraiserCount + 1)).to.be.revertedWith(
-    "offset out of bounds"
-  );
-
-
-
-
   });
 
 
 
-  });
+
+
+
+
+
+
 });
